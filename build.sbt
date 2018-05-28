@@ -18,7 +18,9 @@ lazy val `scala-collection-compat` = crossProject(JSPlatform, JVMPlatform)
     unmanagedSourceDirectories in Compile += {
       val sharedSourceDir = baseDirectory.value.getParentFile / "src/main"
       if (scalaVersion.value.startsWith("2.13.")) sharedSourceDir / "scala-2.13"
-      else sharedSourceDir / "scala-2.11_2.12"
+      else if (scalaVersion.value.startsWith("2.12.")) sharedSourceDir / "scala-2.12"
+      else if (scalaVersion.value.startsWith("2.11.")) sharedSourceDir / "scala-2.11" 
+      else ???
     }
   )
   .jvmSettings(
